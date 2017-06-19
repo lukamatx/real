@@ -2,50 +2,45 @@ module Main where
 
 import Lib
 
-data Maybe Box= Text | Numeral | Nothing
-v1 = WithText "три"
-v2 = WithNumeral 3
-v3 = Empty
+data Distance = DistanceInKm Double
+              deriving (Show)
 
+data Either a b = Left a | Right b
 
-
-
-addDistances (Distanceskm n1) + (Distanceskm n2) = Distanceskm (n1 + n2)
-
-addNamber (Namber n1) - (Namber n2) = Namber (n1 - n2)
-
-addYardage (Namber n1) * (Namber n2) = Namber (n1 * n2)
-
-
-
-
-
-
-
-
-
-Num (Distanceskm n) = (Distanceskm n1) + (Distanceskm n2)
-Num (Distancesml n) = (Distancesml n1) + (Distancesml n2)
-
-
-Num (Distanceskm n) = (Distanceskm n1) * (Distanceskm n2)
-Num (Distancesml n) = (Distancesml n1) * (Distancesml n2)
-
-
-Num (Distanceskm n) abs = |(Distanceskm n)|
-Num (Distancesml n) abs = |(Distancesml n)|
-
-
-nam (n) fromInteger = (Distancesml n)
-nam (n) fromInteger = (Distanceskm n)
-
-
-Num (Distanceskm n) = (Distanceskm n1) - (Distanceskm n2)
-Num (Distancesml n) = (Distancesml n1) - (Distancesml n2)
-
-
-
-
+instance Num Distance where
+    (+) (DistanceInKm n1) (DistanceInKm n2) = DistanceInKm (n1 + n2)
+    (*) (DistanceInKm n1) (DistanceInKm n2) = DistanceInKm (n1 * n2)
+    (-) (DistanceInKm n1) (DistanceInKm n2) = DistanceInKm (n1 - n2)
+    signum (DistanceInKm n1)                = DistanceInKm (signum n1)
+    abs (DistanceInKm n1)                   = DistanceInKm (abs n1)
+    fromInteger n                           = DistanceInKm (fromInteger n)
+    
+main :: IO ()
+main = do
+    putStrLn "Введите значение первой дистанции в км:"
+    d1 <- getLine
+    let box1 = double 
+    case box1 of
+    	Left error -> putStrLn "error"
+    	double :: Text -> Either String (Double, Text)
+    	Right number -> print number
+    putStrLn "А теперь значение второй дистанции в км:"
+    d2 <- getLine
+    let box2 = double 
+    case box2 of
+    	Left error -> putStrLn "error"
+    	double :: Text -> Either String (Double, Text)
+    	Right number -> print number
+    let realD1 = stringToDistance d1 
+        realD2 = stringToDistance d2
+        sumOfDistances = realD1 + realD2
+    putStrLn ("Значение суммы дистанций: " ++ show sumOfDistances)
+    where
+      stringToDistance n = DistanceInKm (read n)
+   	  box1 :: Either String Double
+      box1 = Left "Сообщение об ошибке"
+    	box2 :: Either String Double
+    	box2 = Left "Сообщение об ошибке"
 
 
 
